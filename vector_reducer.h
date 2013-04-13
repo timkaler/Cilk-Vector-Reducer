@@ -15,19 +15,7 @@
 template <typename T>
 class Vector_reducer
 {
-public:
-  struct Monoid: cilk::monoid_base< std::list<std::vector<T>* > >
-  {
-    static void reduce (std::list<std::vector<T>* >* left, std::list<std::vector<T>* >* right) {
-      left->merge(*right);
-    }
-    static void identity (std::list<std::vector<T>* >* id) {
-      std::vector<T>* v = new std::vector<T>();
-      id->push_back(v);
-    }
-  };
 private:
-  cilk::reducer<Monoid> imp_;
   cilk::reducer_list_append<std::vector<T>* > list_reducer;
 public:
   Vector_reducer();
