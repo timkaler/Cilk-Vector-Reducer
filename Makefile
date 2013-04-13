@@ -7,7 +7,7 @@ AR=ar
 
 all: main
 
-main : main.cpp reducer_vector.h Makefile
+main : main.cpp vector_reducer.h Makefile
 	$(CILK) $(CILKFLAGS) $@.cpp $(LDFLAGS) -o $@
 
 clean :

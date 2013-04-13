@@ -2,11 +2,12 @@
 #include <assert.h>
 #include <sys/time.h>
 #include <sys/resource.h>
-#include<vector>
-#include "reducer_vector.h"
+#include <vector>
+
+#include "vector_reducer.h"
 
 // Simple timer for benchmarks
-double tfk_get_time()
+double get_time()
 {
     struct timeval t;
     struct timezone tzp;
@@ -18,21 +19,22 @@ int main(int argc, char **argv)
 {
   Vector_reducer<int> v;
 
-  double add_start = tfk_get_time();
+  double add_start = get_time();
   cilk_for(int i = 0; i < 100000000; i++) {
     v.insert(i);
   }
-  double add_end = tfk_get_time();
+  double add_end = get_time();
 
-  double reducing_start = tfk_get_time();
+  double reducing_start = get_time();
   std::vector<int>& combined = v.get_reference();
-  double reducing_end = tfk_get_time();
+  double reducing_end = get_time();
 
   printf("\n");
   printf("Time adding elements: %f \n", add_end - add_start);
   printf("Time merging elements: %f \n", reducing_end - reducing_start);
   printf("Total time: %f \n", reducing_end - add_start);
   printf("\n");
+
   // Verify that the contents appear in order.
   for (int i = 0; i < combined.size(); i++) {
     if (combined[i] != i) {
