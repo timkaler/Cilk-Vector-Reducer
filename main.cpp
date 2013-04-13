@@ -20,7 +20,7 @@ int main(int argc, char **argv)
   Vector_reducer<int> v;
 
   double add_start = get_time();
-  cilk_for(int i = 0; i < 100000000; i++) {
+  cilk_for(int i = 0; i < 10000000; i++) {
     v.insert(i);
   }
   double add_end = get_time();

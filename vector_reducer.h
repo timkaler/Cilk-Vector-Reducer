@@ -69,7 +69,8 @@ Vector_reducer<T>::get_reference()
     }
     delete vector;
   }
-
+  free(starts);
+  free(vector_list);
   list.clear();
   list.push_back(combined);
 
